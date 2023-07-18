@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// src/Todo.tsx
+import React, { useState, useEffect } from 'react';
+
+type TodoItem = {
+    text: string;
+    expiryDate: Date;
+};
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [items, setItems] = useState<TodoItem[]>([]);
+    const [newItem, setNewItem] = useState<string>('');
+    const [expiryDate, setExpiryDate] = useState<string>('');
+    const deleteTodo = (index: number) => {
+        setItems(prev => prev.filter((todo, i) => i !== index));
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setItems(items => items.filter(item => new Date() < item.expiryDate));
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div className="todo">
+            <label htmlFor="todoInput">Enter a new todo:</label>
+            <input
+                id="todoInput"
+                type="text"
+                placeholder="Enter a new todo"
+                value={newItem}
+                onChange={e => setNewItem(e.target.value)}
+            />
+            <input
+                type="datetime-local"
+                value={expiryDate}
+                onChange={e => setExpiryDate(e.target.value)}
+            />
+            <button onClick={() => setItems([...items, { text: newItem, expiryDate: new Date(expiryDate) }])}>
+                Add Todo
+            </button>
+            {items.map((todo, index) => (
+                <div key={index}>
+                    <span>{todo.text}</span>
+                    <span>Expires at: {new Date(todo.expiryDate).toLocaleString()}</span>
+                    <button onClick={() => deleteTodo(index)}>Delete</button>
+                </div>
+            ))}
+        </div>
+    );
 }
 
 export default App;
