@@ -20,7 +20,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "playwright:test": "playwright test -c playwright.config.ts",
+    "test-ct": "playwright test -c playwright-ct.config.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +45,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.7.3",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@playwright/experimental-ct-react": "^1.36.1",
     "@playwright/test": "^1.36.1",
     "@types/jest-axe": "^3.5.5",
     "jest-axe": "^8.0.0",
