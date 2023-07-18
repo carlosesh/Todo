@@ -34,6 +34,7 @@ function App() {
             <input
                 type="datetime-local"
                 value={expiryDate}
+                placeholder="Enter expiry date and time"
                 onChange={e => setExpiryDate(e.target.value)}
             />
             <button onClick={() => setItems([...items, { text: newItem, expiryDate: new Date(expiryDate) }])}>

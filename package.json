@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@types/jest-axe": "^3.5.5",
-    "jest-axe": "^8.0.0"
+    "jest-axe": "^8.0.0",
+    "jest-date-mock": "^1.0.8"
   }
 }
