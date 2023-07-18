@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "playwright:test": "playwright test -c playwright.config.ts",
-    "test-ct": "playwright test -c playwright-ct.config.ts"
+    "playwright:test-ct": "playwright test -c playwright-ct.config.ts"
   },
   "eslintConfig": {
     "extends": [
