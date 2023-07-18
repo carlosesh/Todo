@@ -18,3 +18,23 @@ test('TodoItem should be accessible', async () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
 });
+
+test('TodoItem button text should not throw accessibility violation', async () => {
+    // Render the TodoItem with a button without discernible text
+    const { container } = render(
+        <TodoItem
+            text="Test todo"
+            expiryDate={new Date('2023-12-31T13:00')}
+            deleteTodo={() => {}}
+        />
+    );
+
+    // Change the text of the delete button to be empty
+    const deleteButton = container.querySelector('button');
+
+    // Run axe on the rendered HTML
+    const results = await axe(container);
+
+    // Assert that axe found violations
+    expect(results).toHaveNoViolations();
+});
