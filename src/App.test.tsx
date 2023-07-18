@@ -7,9 +7,7 @@ import ReactDOM from 'react-dom';
 
 
 test('renders the add button and input field', () => {
-  act(() => {
-    render(<App />);
-  });
+  render(<App />);
 
   // Check that the add button is there
   const addButton = screen.getByText('Add Todo');
@@ -21,9 +19,7 @@ test('renders the add button and input field', () => {
 });
 
 test('allows the user to add a todo', () => {
-  act(() => {
-    render(<App />);
-  });
+  render(<App />);
 
   const addButton = screen.getByText('Add Todo');
   const input = screen.getByPlaceholderText('Enter a new todo');
@@ -36,9 +32,7 @@ test('allows the user to add a todo', () => {
 });
 
 test('allows the user to delete a todo', () => {
-  act(() => {
-    render(<App />);
-  });
+  render(<App />);
 
   const addButton = screen.getByText('Add Todo');
   const input = screen.getByPlaceholderText('Enter a new todo');
@@ -55,9 +49,7 @@ test('allows the user to delete a todo', () => {
 });
 
 test('Todo item should correctly display the expiry date', () => {
-  act(() => {
-    render(<App />);
-  });
+  render(<App />);
 
   const textField = screen.getByPlaceholderText("Enter a new todo");
   const expiryDateField = screen.getByPlaceholderText("Enter expiry date and time");
@@ -74,9 +66,7 @@ test('Todo item should correctly display the expiry date', () => {
 
 
 test('Todo item should be deleted correctly', () => {
-  act(() => {
-    render(<App />);
-  });
+  render(<App />);
 
   const textField = screen.getByPlaceholderText("Enter a new todo");
   const expiryDateField = screen.getByPlaceholderText("Enter expiry date and time");
@@ -98,28 +88,29 @@ test('useEffect should delete expired todos', async () => {
     render(<App />);
   });
 
-  const textField = screen.getByPlaceholderText("Enter a new todo");
-  const expiryDateField = screen.getByPlaceholderText("Enter expiry date and time");
+  const textField = await screen.findByPlaceholderText("Enter a new todo");
+  const expiryDateField = await screen.findByPlaceholderText("Enter expiry date and time");
 
-  fireEvent.change(textField, { target: { value: 'Expired Test Todo' } });
-  fireEvent.change(expiryDateField, { target: { value: '2023-12-31T13:00' } });
-  fireEvent.click(screen.getByText("Add Todo"));
+  act(() => {
+    fireEvent.change(textField, { target: { value: 'Expired Test Todo' } });
+    fireEvent.change(expiryDateField, { target: { value: '2023-12-31T13:00' } });
+    fireEvent.click(screen.getByText("Add Todo"));
 
-  // Advance the time to after the expiry date of the todo
-  advanceTo(new Date('2024-01-01T00:00'));
+    // Advance the time to after the expiry date of the todo
+    advanceTo(new Date('2024-01-01T00:00'));
+  });
 
   // Wait for useEffect to execute and re-render the component
-  await new Promise(r => setTimeout(r, 2000));
+  await act(async () => new Promise(r => setTimeout(r, 2000)));
 
   // The todo should no longer be in the document
   expect(screen.queryByText('Expired Test Todo')).not.toBeInTheDocument();
   expect(screen.queryByText('Expires at: 12/31/2023, 1:00 PM')).not.toBeInTheDocument();
 });
 
+
 test('does not allow adding a todo with no text', () => {
-  act(() => {
-    render(<App />);
-  });
+  render(<App />);
 
   const addButton = screen.getByText('Add Todo');
   fireEvent.click(addButton);
