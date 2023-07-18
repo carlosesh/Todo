@@ -1,13 +1,13 @@
 // src/Todo.tsx
 import React, { useState, useEffect } from 'react';
+import TodoItem from './TodoItem';
 
-type TodoItem = {
+type Todo = {
     text: string;
     expiryDate: Date;
 };
-
 function App() {
-    const [items, setItems] = useState<TodoItem[]>([]);
+    const [items, setItems] = useState<Todo[]>([]);
     const [newItem, setNewItem] = useState<string>('');
     const [expiryDate, setExpiryDate] = useState<string>('');
     const deleteTodo = (index: number) => {
@@ -41,11 +41,7 @@ function App() {
                 Add Todo
             </button>
             {items.map((todo, index) => (
-                <div key={index}>
-                    <span>{todo.text}</span>
-                    <span>Expires at: {new Date(todo.expiryDate).toLocaleString()}</span>
-                    <button onClick={() => deleteTodo(index)}>Delete</button>
-                </div>
+                <TodoItem key={index} text={todo.text} expiryDate={todo.expiryDate} deleteTodo={() => deleteTodo(index)} />
             ))}
         </div>
     );
