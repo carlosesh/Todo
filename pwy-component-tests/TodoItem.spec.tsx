@@ -1,6 +1,6 @@
 import { test, expect } from './util/axe-test';
-import App from '../App';
-import TodoItem from '../TodoItem';
+import App from '../src/App';
+import TodoItem from '../src/TodoItem';
 
 test.use({ viewport: { width: 500, height: 500 } });
 
