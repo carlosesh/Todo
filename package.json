@@ -21,6 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint": "yarn eslint .",
+    "lint:fix": "yarn eslint . --fix",
     "playwright:test": "playwright test -c playwright.config.ts",
     "playwright:test-ct": "playwright test -c playwright-ct.config.ts"
   },
@@ -48,6 +50,12 @@
     "@playwright/experimental-ct-react": "^1.36.1",
     "@playwright/test": "^1.36.1",
     "@types/jest-axe": "^3.5.5",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "axe-html-reporter": "^2.2.3",
+    "eslint": "^8.47.0",
+    "eslint-import-resolver-typescript": "^3.6.0",
+    "eslint-plugin-import": "^2.28.1",
     "jest-axe": "^8.0.0",
     "jest-date-mock": "^1.0.8",
     "jest-html-reporters": "^3.1.4"
